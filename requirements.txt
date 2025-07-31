@@ -1,0 +1,35 @@
+# Core ML/AI packages
+ollama
+llama-cpp-python
+
+# Audio processing
+gTTS==2.3.2
+pydub==0.25.1
+pyttsx3==2.90
+
+# Data science and visualization
+numpy==1.24.4
+matplotlib==3.7.2
+
+# Game/Chess related
+stockfish==3.28.0
+python-chess==1.999
+
+# Web framework
+flask==3.0.3
+
+# HTTP requests
+requests==2.31.0
+
+# Media processing
+moviepy==1.0.3
+Pillow==10.0.1
+
+# Image processing
+cairosvg==2.7.1
+
+# Utilities
+decorator
+
+# environment
+python-dotenv
