@@ -1,14 +1,20 @@
 from flask import Flask, render_template, request, jsonify, send_file
 from werkzeug.utils import secure_filename
 import os
-from utils import parse_pgn, parse_fen
+from utils import parse_pgn, parse_fen, is_fen_string
 from ollama_integration import generate_commentary
 from stockfish_analysis import analyze_moves
 from audio_generation import generate_audio
 from visualization import create_video
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = Flask(__name__)
-app.config['UPLOAD_FOLDER'] = '../uploads'
+
+# Use UPLOAD_PATH env if set, otherwise fallback to ./uploads in project root
+UPLOAD_PATH = os.getenv("UPLOAD_PATH") or os.path.join(os.getcwd(), "uploads")
+app.config['UPLOAD_FOLDER'] = UPLOAD_PATH
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 
 # Ensure upload directory exists
@@ -25,9 +31,11 @@ def analyze():
         if not content:
             return jsonify({'error': 'No content provided'}), 400
 
-        # Parse input
+        content = content.strip()
+
+        # Determine whether input is FEN or PGN
         try:
-            if content.startswith('rnbqkbnr'):
+            if is_fen_string(content):
                 game_data = parse_fen(content)
             else:
                 game_data = parse_pgn(content)
