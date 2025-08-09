@@ -24,7 +24,7 @@ lichess-commentary-app
 To set up the project, clone the repository and install the required dependencies:
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/rohansadaphule/lichess-commentary-app
 cd lichess-commentary-app
 pip install -r requirements.txt
 ```
